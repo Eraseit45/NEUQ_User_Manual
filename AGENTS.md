@@ -20,6 +20,7 @@
 
 - Build: `hugo --minify`
 - Run locally: `hugo server`
+- Deploy and verify GitHub Pages: `scripts/deploy-pages.sh "Commit message"`
 
 ## Acceptance Criteria
 
@@ -33,3 +34,4 @@
 - Prefer overriding theme files from project-level `layouts/` and `assets/` instead of editing the `themes/hugo-book` submodule.
 - The sidebar file tree is customized to render sections only, not individual article pages.
 - The mobile topbar includes a client-side light/dark theme toggle that stores its choice in `localStorage` under `book-theme`.
+- The theme toggle uses Unicode icons: `☾` for switching to dark mode and `☀` for switching to light mode.
