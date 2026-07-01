@@ -31,10 +31,11 @@ if ! git push "$remote" "$branch"; then
   git -c core.sshCommand='ssh -F /dev/null' push "$remote" "$branch"
 fi
 
+head_sha="$(git rev-parse HEAD)"
 echo "Waiting for GitHub Pages workflow..."
 run_id=""
-for _ in {1..20}; do
-  run_id="$(gh run list --repo "$repo" --workflow "$workflow" --branch "$branch" --limit 1 --json databaseId --jq '.[0].databaseId // ""')"
+for _ in {1..40}; do
+  run_id="$(gh run list --repo "$repo" --workflow "$workflow" --branch "$branch" --limit 20 --json databaseId,headSha --jq '.[] | select(.headSha == "'"$head_sha"'") | .databaseId' | head -n 1)"
   if [[ -n "$run_id" ]]; then
     break
   fi
@@ -42,7 +43,7 @@ for _ in {1..20}; do
 done
 
 if [[ -z "$run_id" ]]; then
-  echo "Could not find a workflow run for $workflow on $branch." >&2
+  echo "Could not find a workflow run for $workflow on $branch at $head_sha." >&2
   exit 1
 fi
 
