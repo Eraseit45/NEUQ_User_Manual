@@ -6,12 +6,6 @@
   <h3>{{ partial "docs/title" . }}</h3>
 
   <div class="book-header-actions">
-    <label for="toc-control">
-      {{ if partial "docs/toc-show" . }}
-      <img src="{{ partial "docs/icon" "toc" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Table of Contents" }}" />
-      {{ end }}
-    </label>
-
     <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换夜间模式" title="切换夜间模式">
       <span class="theme-toggle-icon" data-theme-toggle-icon aria-hidden="true">☾</span>
     </button>

@@ -4,11 +4,11 @@
 
 {{ define "neuq-section-children" }}{{/* (dict "Section" .Section "CurrentPage" .CurrentPage) */}}
   <ul>
-    {{ range (where (where .Section.Pages "Params.bookHidden" "ne" true) "IsSection" true) }}
-      {{ $childSections := where (where .Pages "Params.bookHidden" "ne" true) "IsSection" true }}
+    {{ range (where .Section.Pages "Params.bookHidden" "ne" true) }}
+      {{ $children := where .Pages "Params.bookHidden" "ne" true }}
       <li {{- if .Params.BookFlatSection }} class="book-section-flat" {{ end -}}>
-        {{ template "neuq-page-link" (dict "Page" . "CurrentPage" $.CurrentPage "HasChildren" (gt (len $childSections) 0)) }}
-        {{ if gt (len $childSections) 0 }}
+        {{ template "neuq-page-link" (dict "Page" . "CurrentPage" $.CurrentPage "HasChildren" (and .IsSection (gt (len $children) 0))) }}
+        {{ if and .IsSection (gt (len $children) 0) }}
           {{ template "neuq-section-children" (dict "Section" . "CurrentPage" $.CurrentPage) }}
         {{ end }}
       </li>
@@ -20,10 +20,10 @@
   {{ $current := eq .CurrentPage .Page }}
   {{ $ancestor := .Page.IsAncestor .CurrentPage }}
 
-  {{ if and .Page.Params.BookCollapseSection .HasChildren }}
+  {{ if .HasChildren }}
     <input type="checkbox" id="section-{{ md5 .Page }}" class="toggle" {{ if or $current $ancestor }}checked{{ end }} />
     <label for="section-{{ md5 .Page }}" class="flex">
-      <a {{ if .Page.Content }}href="{{ .Page.RelPermalink }}"{{ else }}role="button"{{ end }} class="{{ if $current }}active{{ end }}">
+      <a role="button" class="{{ if $current }}active{{ end }}">
         {{ template "book-icon-title" .Page -}}
       </a>
       <img src="{{ partial "docs/icon" "chevron-right" }}" class="book-icon" alt="{{ partial "docs/text/i18n" "Expand" }}" />
