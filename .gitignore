@@ -1,0 +1,21 @@
+# Generated files by Hugo
+/public/
+/resources/
+/_site/
+.hugo_build.lock
+
+# Hugo default output directory
+/public/
+
+# Node.js dependencies (if using PostCSS etc.)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo

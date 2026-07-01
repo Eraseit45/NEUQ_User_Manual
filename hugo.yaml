@@ -1,0 +1,35 @@
+baseURL: https://eraseit45.github.io/NEUQ_User_Manual/
+title: NEUQer's Tutorial
+theme: hugo-book
+locale: zh-CN
+hasCJKLanguage: true
+disablePathToLower: true
+
+params:
+  BookTheme: light
+  BookSection: /
+  BookSearch: true
+  BookComments: false
+  BookDateFormat: "2006-01-02"
+
+menu:
+  after:
+    - name: 学习
+      pageRef: /study
+      weight: 1
+    - name: 日常生活
+      pageRef: /daily
+      weight: 2
+    - name: 碎碎念
+      pageRef: /murmur
+      weight: 3
+    - name: 招新通知
+      pageRef: /recruit
+      weight: 4
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 1
